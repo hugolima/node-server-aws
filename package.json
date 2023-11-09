@@ -1,0 +1,23 @@
+{
+  "name": "node-server-aws",
+  "version": "1.0.0",
+  "description": "Web server em Node para estudo da AWS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugolima/node-server-aws.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hugolima/node-server-aws/issues"
+  },
+  "homepage": "https://github.com/hugolima/node-server-aws#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
