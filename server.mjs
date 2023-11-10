@@ -8,6 +8,7 @@ const client = new Client({
   database: 'postgres',
   password: 'pos-ceub',
   port: 5432,
+  ssl: true,
 })
 
 const app = express()
