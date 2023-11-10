@@ -2,7 +2,7 @@ import express  from 'express'
 import * as pg from 'pg'
 
 const { Pool } = pg.default
-const client = new Pool({
+const pool = new Pool({
   user: 'postgres',
   host: 'database-pos-ceub.c7fouuzhnnjw.us-east-2.rds.amazonaws.com',
   database: 'postgres',
@@ -14,7 +14,7 @@ const client = new Pool({
 })
 
 console.log('Conectando ao banco database-pos-ceub')
-await client.connect()
+const client = await pool.connect()
 
 const app = express()
 const port = 3000
@@ -36,7 +36,7 @@ app.post('/usuarios', async (req, res) => {
   try {
     await client.query('BEGIN')
     const queryText = 'INSERT INTO Usuario(nome, sexo, idade) VALUES($1, $2, $3) RETURNING id;'
-    const res = await client.query(queryText, ['' + usuario.nome, '' + usuario.sexo, usuario.idade])
+    const res = await client.query(queryText, [usuario.nome, usuario.sexo, usuario.idade])
     const idRetorno = res.rows[0].id
     await client.query('COMMIT')
 
