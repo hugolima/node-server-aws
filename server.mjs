@@ -13,15 +13,15 @@ const pool = new Pool({
   },
 })
 
-console.log('Conectando ao banco database-pos-ceub')
-const client = await pool.connect()
-
 const app = express()
 const port = 3000
 
 app.use(express.json())
 
 app.get('/usuarios', async (req, res) => {
+  console.log('Conectando ao banco database-pos-ceub')
+  const client = await pool.connect()
+
   try {
     const lista = await client.query('SELECT * FROM Usuario')
     res.send(lista.rows)
@@ -31,6 +31,8 @@ app.get('/usuarios', async (req, res) => {
 })
 
 app.post('/usuarios', async (req, res) => {
+  console.log('Conectando ao banco database-pos-ceub')
+  const client = await pool.connect()
   const usuario = req.body;
 
   try {
