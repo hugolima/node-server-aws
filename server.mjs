@@ -34,23 +34,24 @@ app.post('/usuarios', async (req, res) => {
   console.log('Conectando ao banco database-pos-ceub')
   const client = await pool.connect()
   const usuario = req.body;
+  let idRetorno = 0;
 
   try {
     await client.query('BEGIN')
     const queryText = 'INSERT INTO Usuario(nome, sexo, idade) VALUES($1, $2, $3) RETURNING id;'
     const res = await client.query(queryText, [usuario.nome, usuario.sexo, usuario.idade])
-    const idRetorno = res.rows[0].id
+    idRetorno = res.rows[0].id
     await client.query('COMMIT')
-
-    res.send({
-      id: idRetorno,
-    });
   } catch (e) {
     await client.query('ROLLBACK')
     throw e
   } finally {
     client.release()
   }
+
+  res.send({
+    id: idRetorno,
+  });
 })
 
 app.listen(port, () => {
